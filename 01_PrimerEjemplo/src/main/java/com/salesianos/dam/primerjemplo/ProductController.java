@@ -29,6 +29,36 @@ public class ProductController {
 
     }
 
+    @GetMapping
+    public ResponseEntity<List<Product>> getAllProducts() {
+        List<Product> result = productRepository.findAll();
+        if (result.isEmpty()) {
+            // return ResponseEntity.status(404).build();
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
+        return ResponseEntity.of(productRepository.findById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(
+            @PathVariable Long id,
+            @RequestBody Product product) {
+
+        return productRepository.findById(id)
+                .map(p -> {
+                    p.setName(product.getName());
+                    p.setPrice(product.getPrice());
+                    return ResponseEntity.ok(productRepository.save(p));
+                })
+                .orElse(ResponseEntity.notFound().build());
+
+    }
+
 }
 //
 //    @PostMapping
