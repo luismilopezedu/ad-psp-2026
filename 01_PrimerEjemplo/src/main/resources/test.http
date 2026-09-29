@@ -13,3 +13,16 @@ GET http://localhost:8080/api/product
 
 ### GET obtener producto id 1
 GET http://localhost:8080/api/product/1
+
+
+### PUT Modificar producto
+PUT http://localhost:8080/api/product/1
+Content-Type: application/json
+
+{
+  "name": "Pan y picos",
+  "price": 1.2
+}
+
+### DELETE borrar producto id 1
+DELETE http://localhost:8080/api/product/1
