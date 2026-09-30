@@ -86,7 +86,7 @@ select next value for product_seq [90036-240]
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
 	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:222)
 	at jdk.proxy2/jdk.proxy2.$Proxy114.save(Unknown Source)
-	at com.salesianos.dam.primerjemplo.ProductController.addProduct(ProductController.java:25)
+	at com.salesianos.dam.primerjemplo.controller.ProductController.addProduct(ProductController.java:25)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:252)

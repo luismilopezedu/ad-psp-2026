@@ -5,7 +5,8 @@ Content-Type: application/json
 
 {
   "name": "Pan y picos",
-  "price": 1
+  "price": 1,
+  "details": "Servicio de mesa"
 }
 
 ### GET obtener todos los productos

@@ -1,4 +1,4 @@
-package com.salesianos.dam.primerjemplo;
+package com.salesianos.dam.primerjemplo.model;
 
 /*record Product(String name, String price){}*/
 
@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -21,6 +23,10 @@ public class Product {
     private Long id;
     private String name;
     private Double price;
+    private String details;
+
+    @Builder.Default
+    private LocalDateTime createdAt = LocalDateTime.now();
 
 }
 
