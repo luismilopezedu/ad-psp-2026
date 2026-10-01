@@ -65,17 +65,25 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(
+    public ResponseEntity<GetProductDetail> updateProduct(
             @PathVariable Long id,
-            @RequestBody Product product) {
+            @RequestBody EditProductDto product) {
+
+
+        if (!StringUtils.hasText(product.name()) || product.price() < 0) {
+            return ResponseEntity.badRequest().build();
+        }
 
         return productRepository.findById(id)
                 .map(p -> {
-                    p.setName(product.getName());
-                    p.setPrice(product.getPrice());
-                    return ResponseEntity.ok(productRepository.save(p));
-                })
-                .orElse(ResponseEntity.notFound().build());
+                    p.setName(product.name());
+                    p.setPrice(product.price());
+                    p.setDetails(product.details());
+                    return ResponseEntity.ok(
+                            GetProductDetail.of(productRepository.save(p))
+                    );
+                }).orElse(ResponseEntity.notFound().build());
+
 
     }
 

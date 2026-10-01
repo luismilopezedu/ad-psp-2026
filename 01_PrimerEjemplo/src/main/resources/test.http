@@ -22,7 +22,8 @@ Content-Type: application/json
 
 {
   "name": "Pan y picos",
-  "price": 1.2
+  "price": -13,
+  "details": "Servicio de mesa por persona"
 }
 
 ### DELETE borrar producto id 1
