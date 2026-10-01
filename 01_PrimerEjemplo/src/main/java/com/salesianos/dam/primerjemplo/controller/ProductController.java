@@ -5,12 +5,12 @@ import com.salesianos.dam.primerjemplo.dto.GetProductDetail;
 import com.salesianos.dam.primerjemplo.dto.GetProductList;
 import com.salesianos.dam.primerjemplo.model.Product;
 import com.salesianos.dam.primerjemplo.repo.ProductRepository;
+import com.salesianos.dam.primerjemplo.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -20,6 +20,7 @@ import java.util.List;
 public class ProductController {
 
     private final ProductRepository productRepository;
+    private final ProductService productService;
 
     @PostMapping
     //public ResponseEntity<Product> addProduct(@RequestBody Product product) {
@@ -42,11 +43,15 @@ public class ProductController {
     //public ResponseEntity<List<Product>> getAllProducts() {
     public ResponseEntity<List<GetProductList>> getAllProducts() {
 
-        List<Product> result = productRepository.findAll();
-        if (result.isEmpty()) {
-            // return ResponseEntity.status(404).build();
-            return ResponseEntity.notFound().build();
-        }
+        /*
+            RESPONSABILIDADES DE ESTE MÉTODO
+                - Invocar al servicio para recibir la lista
+                  de productos.
+                - Transformar los productos al dto de salida.
+                - Devolver la respuesta 200 OK con los productos.
+         */
+
+        List<Product> result = productService.getAllProducts();
         return ResponseEntity.ok(
                 result
                         .stream()
