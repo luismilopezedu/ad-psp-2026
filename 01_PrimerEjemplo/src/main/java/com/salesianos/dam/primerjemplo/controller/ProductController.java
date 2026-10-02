@@ -25,37 +25,15 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    //public ResponseEntity<Product> addProduct(@RequestBody Product product) {
     public ResponseEntity<GetProductDetail> addProduct(@RequestBody EditProductDto product) {
-
-        /*if (StringUtils.hasText(product.name())) {
-            return ResponseEntity.status(201)
-                    .body(
-                            GetProductDetail.of(
-                                    productRepository.save(product.to())
-                            )
-                    );
-        }
-
-        return ResponseEntity.badRequest().build();*/
 
         return ResponseEntity.status(201)
                 .body(GetProductDetail.of(productService.addProduct(product)));
 
-
     }
 
     @GetMapping
-    //public ResponseEntity<List<Product>> getAllProducts() {
     public ResponseEntity<List<GetProductList>> getAllProducts() {
-
-        /*
-            RESPONSABILIDADES DE ESTE MÉTODO
-                - Invocar al servicio para recibir la lista
-                  de productos.
-                - Transformar los productos al dto de salida.
-                - Devolver la respuesta 200 OK con los productos.
-         */
 
         List<Product> result = productService.getAllProducts();
         return ResponseEntity.ok(
@@ -66,19 +44,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    //public ResponseEntity<Product> getProductById(@PathVariable Long id) {
     public ResponseEntity<GetProductDetail> getProductById(@PathVariable Long id) {
-
-        /*return ResponseEntity.of(
-                productRepository.findById(id)
-                        .map(GetProductDetail::of)
-        );*/
-
-        /*return ResponseEntity.ok(
-                Optional.ofNullable(productService.getProductById(id))
-                        .map(GetProductDetail::of)
-                        .get()
-        );*/
 
         return ResponseEntity.ok(GetProductDetail.of(productService.getProductById(id)));
 
@@ -89,27 +55,15 @@ public class ProductController {
             @PathVariable Long id,
             @RequestBody EditProductDto product) {
 
-
-        if (!StringUtils.hasText(product.name()) || product.price() < 0) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        return productRepository.findById(id)
-                .map(p -> {
-                    p.setName(product.name());
-                    p.setPrice(product.price());
-                    p.setDetails(product.details());
-                    return ResponseEntity.ok(
-                            GetProductDetail.of(productRepository.save(p))
-                    );
-                }).orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(
+                GetProductDetail.of(productService.updateProduct(id, product)));
 
 
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-        productRepository.deleteById(id);
+        productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
 
