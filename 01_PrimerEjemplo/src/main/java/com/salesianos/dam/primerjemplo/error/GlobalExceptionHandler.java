@@ -23,5 +23,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return problem;
     }
 
+    @ExceptionHandler(InvalidProductException.class)
+    public ProblemDetail handleInvalidProduct(InvalidProductException ex) {
+
+        ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        problem.setTitle("Datos de producto inválidos");
+        problem.setDetail(ex.getMessage());
+        problem.setType(URI.create("https://example.com/errors/invalid-product"));
+
+        return problem;
+    }
+
 
 }

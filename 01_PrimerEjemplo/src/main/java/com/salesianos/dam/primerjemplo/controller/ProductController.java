@@ -28,7 +28,7 @@ public class ProductController {
     //public ResponseEntity<Product> addProduct(@RequestBody Product product) {
     public ResponseEntity<GetProductDetail> addProduct(@RequestBody EditProductDto product) {
 
-        if (StringUtils.hasText(product.name())) {
+        /*if (StringUtils.hasText(product.name())) {
             return ResponseEntity.status(201)
                     .body(
                             GetProductDetail.of(
@@ -37,7 +37,11 @@ public class ProductController {
                     );
         }
 
-        return ResponseEntity.badRequest().build();
+        return ResponseEntity.badRequest().build();*/
+
+        return ResponseEntity.status(201)
+                .body(GetProductDetail.of(productService.addProduct(product)));
+
 
     }
 

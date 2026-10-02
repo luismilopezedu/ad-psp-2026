@@ -9,6 +9,37 @@ Content-Type: application/json
   "details": "Servicio de mesa"
 }
 
+### POST Crear producto - Error 1
+POST http://localhost:8080/api/product
+Content-Type: application/json
+
+{
+  "name": "",
+  "price": 1,
+  "details": "Servicio de mesa"
+}
+
+### POST Crear producto - Error 2
+POST http://localhost:8080/api/product
+Content-Type: application/json
+
+{
+  "name": "Pan y picos",
+  "price": -1,
+  "details": "Servicio de mesa"
+}
+
+
+### POST Crear producto - Error 3
+POST http://localhost:8080/api/product
+Content-Type: application/json
+
+{
+  "name": "Pan y picos",
+  "price": 1,
+  "details": null
+}
+
 ### GET obtener todos los productos
 GET http://localhost:8080/api/product
 
