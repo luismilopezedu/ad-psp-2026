@@ -44,7 +44,7 @@ Content-Type: application/json
 GET http://localhost:8080/api/product
 
 ### GET obtener producto id 1
-GET http://localhost:8080/api/product/1
+GET http://localhost:8080/api/product/111
 
 
 ### PUT Modificar producto
@@ -59,3 +59,8 @@ Content-Type: application/json
 
 ### DELETE borrar producto id 1
 DELETE http://localhost:8080/api/product/1
+
+
+
+### GET obtener todos las categorías
+GET http://localhost:8080/api/category

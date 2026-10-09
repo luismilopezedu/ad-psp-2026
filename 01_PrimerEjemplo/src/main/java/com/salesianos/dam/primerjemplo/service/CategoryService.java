@@ -1,10 +1,9 @@
 package com.salesianos.dam.primerjemplo.service;
 
 
-import com.salesianos.dam.primerjemplo.error.CategoryNotFoundException;
+import com.salesianos.dam.primerjemplo.error.notfound.CategoryNotFoundException;
 import com.salesianos.dam.primerjemplo.model.Category;
 import com.salesianos.dam.primerjemplo.repo.CategoryRepository;
-import com.salesianos.dam.primerjemplo.repo.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

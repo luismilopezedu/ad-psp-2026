@@ -1,16 +1,13 @@
 package com.salesianos.dam.primerjemplo.service;
 
 import com.salesianos.dam.primerjemplo.dto.EditProductDto;
-import com.salesianos.dam.primerjemplo.dto.GetProductDetail;
 import com.salesianos.dam.primerjemplo.error.InvalidProductException;
-import com.salesianos.dam.primerjemplo.error.ProductNotFoundException;
+import com.salesianos.dam.primerjemplo.error.notfound.ProductNotFoundException;
 import com.salesianos.dam.primerjemplo.model.Product;
 import com.salesianos.dam.primerjemplo.repo.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
