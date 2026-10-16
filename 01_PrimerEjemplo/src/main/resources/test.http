@@ -15,7 +15,7 @@ Content-Type: application/json
 
 {
   "name": "",
-  "price": 1,
+  "price": -1,
   "details": "Servicio de mesa"
 }
 

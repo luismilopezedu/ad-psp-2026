@@ -7,6 +7,7 @@ import com.salesianos.dam.primerjemplo.error.ProductNotFoundException;
 import com.salesianos.dam.primerjemplo.model.Product;
 import com.salesianos.dam.primerjemplo.repo.ProductRepository;
 import com.salesianos.dam.primerjemplo.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -25,7 +26,8 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    public ResponseEntity<GetProductDetail> addProduct(@RequestBody EditProductDto product) {
+    public ResponseEntity<GetProductDetail> addProduct(
+            @Valid @RequestBody EditProductDto product) {
 
         return ResponseEntity.status(201)
                 .body(GetProductDetail.of(productService.addProduct(product)));

@@ -1,10 +1,12 @@
 package com.salesianos.dam.primerjemplo.dto;
 
 import com.salesianos.dam.primerjemplo.model.Product;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
 
 public record EditProductDto(
-        String name,
-        Double price,
+        @NotBlank(message = "{editProductDto.name.notBlank}") String name,
+        @PositiveOrZero(message = "{editProductDto.price.PositiveOrZero}") Double price,
         String details
 ) {
 
