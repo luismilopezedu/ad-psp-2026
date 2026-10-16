@@ -1,6 +1,8 @@
 package com.salesianos.dam.primerjemplo.error;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import lombok.Builder;
 import org.jspecify.annotations.Nullable;
 import org.springframework.http.*;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -39,6 +42,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         problem.setType(URI.create("https://example.com/errors/invalid-product"));
 
         return problem;
+    }
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ProblemDetail handleConstraintViolation(ConstraintViolationException ex) {
+        ProblemDetail result = ProblemDetail
+                .forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+
+        List<ApiValidationSubError> subErrors =
+                ex.getConstraintViolations().stream()
+                        .map(ApiValidationSubError::from)
+                        .toList();
+
+        result.setProperty("invalid-params", subErrors);
+
+        return result;
+
     }
 
     @Override
@@ -94,6 +112,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             return result;
 
 
+        }
+
+
+        public static ApiValidationSubError from(ConstraintViolation v) {
+            return ApiValidationSubError.builder()
+                    .message(v.getMessage())
+                    .rejectedValue(v.getInvalidValue())
+                    .object(v.getRootBean().getClass().getSimpleName())
+                    /*.field(
+                            Optional.ofNullable(v.getPropertyPath())
+                                    .map(PathImpl.class::cast)
+                                    .map(PathImpl::getLeafNode)
+                                    .map(NodeImpl::asString)
+                                    .orElse("unknown")
+                    )*/
+                    .build();
         }
     }
 }
