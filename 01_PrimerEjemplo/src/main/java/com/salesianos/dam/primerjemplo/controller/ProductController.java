@@ -40,6 +40,17 @@ public class ProductController {
                         .toList());
     }
 
+    @GetMapping("/category/{id}")
+    public ResponseEntity<List<GetProductList>> getProductByCategory(@PathVariable Long id) {
+
+        List<Product> result = productService.getProductByCategory(id);
+        return ResponseEntity.ok(
+                result
+                        .stream()
+                        .map(GetProductList::of)
+                        .toList());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<GetProductDetail> getProductById(@PathVariable Long id) {
 

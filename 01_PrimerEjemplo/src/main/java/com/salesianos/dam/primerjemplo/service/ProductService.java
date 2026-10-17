@@ -32,6 +32,14 @@ public class ProductService {
         return result;
     }
 
+    public List<Product> getProductByCategory(Long id) {
+        List<Product> result = productRepository.findByCategoryId(id);
+        if (result.isEmpty()) {
+            throw new ProductNotFoundException("Product not found with category id " + id);
+        }
+        return result;
+    }
+
     public Product getProductById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException(id));

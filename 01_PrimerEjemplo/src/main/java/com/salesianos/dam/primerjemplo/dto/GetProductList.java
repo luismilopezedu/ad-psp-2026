@@ -10,7 +10,7 @@ public record GetProductList(
 ) {
 
     public static GetProductList of(Product p) {
-        return new GetProductList(p.getId(), p.getName(), p.getPrice());
+        return new GetProductList(p.getId(), p.getName(), p.getPrice(), p.getCategory().getName());
     }
 
 
