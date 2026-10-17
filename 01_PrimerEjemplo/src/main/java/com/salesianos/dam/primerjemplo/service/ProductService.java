@@ -3,7 +3,9 @@ package com.salesianos.dam.primerjemplo.service;
 import com.salesianos.dam.primerjemplo.dto.EditProductDto;
 import com.salesianos.dam.primerjemplo.error.InvalidProductException;
 import com.salesianos.dam.primerjemplo.error.notfound.ProductNotFoundException;
+import com.salesianos.dam.primerjemplo.model.Category;
 import com.salesianos.dam.primerjemplo.model.Product;
+import com.salesianos.dam.primerjemplo.repo.CategoryRepository;
 import com.salesianos.dam.primerjemplo.repo.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
 
     /*
         RESPONSABILIDADES DE ESTE MÉTODO
@@ -47,7 +50,14 @@ public class ProductService {
 
     public Product addProduct(EditProductDto editProductDto) {
         validateProduct(editProductDto);
-        return productRepository.save(editProductDto.to());
+
+        Product p = editProductDto.to();
+        // Buscamos la categoría
+        Category c = categoryRepository.findById(editProductDto.categoryId())
+                // Permitimos productos sin categoría por facilitar el ejemplo
+                .orElse(null);
+        p.setCategory(c);
+        return productRepository.save(p);
     }
 
     public Product updateProduct(Long id, EditProductDto editProductDto) {

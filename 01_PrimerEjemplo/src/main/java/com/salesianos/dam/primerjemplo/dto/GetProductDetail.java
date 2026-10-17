@@ -29,7 +29,17 @@ public record GetProductDetail(
                 description = "Detalles del producto",
                 example = "Camiseta de algodón"
         )
-        String details
+        String details,
+        @Schema(
+                description = "Id de la categoría",
+                example = "1"
+        )
+        Long categoryId,
+        @Schema(
+                description = "Nombre de la categoría",
+                example = "Ropa"
+        )
+        String categoryName
 ) {
 
     public static GetProductDetail of(Product p) {
@@ -37,7 +47,9 @@ public record GetProductDetail(
                 p.getId(),
                 p.getName(),
                 p.getPrice(),
-                p.getDetails()
+                p.getDetails(),
+                p.getCategory() != null ? p.getCategory().getId() : null,
+                p.getCategory() != null ? p.getCategory().getName() : null
         );
     }
 

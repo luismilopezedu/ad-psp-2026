@@ -19,22 +19,26 @@ public record GetProductList(
                 example = "Camiseta"
         )
         String name,
-        Double price,
-        String categoryName
-
         @Schema(
                 description = "Precio del producto",
                 example = "19.99"
         )
-        Double price
+        Double price,
+        @Schema(
+                description = "Nombre de la categoría del producto",
+                example = "Ropa"
+        )
+        String categoryName
 ) {
 
     public static GetProductList of(Product p) {
-        return new GetProductList(p.getId(), p.getName(), p.getPrice(), p.getCategory().getName());
+        return new GetProductList(
+                p.getId(),
+                p.getName(),
+                p.getPrice(),
+                p.getCategory() != null ? p.getCategory().getName() : null
+        );
     }
-
-
-
 
 }
 

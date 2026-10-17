@@ -6,7 +6,8 @@ Content-Type: application/json
 {
   "name": "Pan y picos",
   "price": 1,
-  "details": "Servicio de mesa"
+  "details": "Servicio de mesa",
+  "categoryId": 2
 }
 
 ### POST Crear producto - Error 1
@@ -16,7 +17,8 @@ Content-Type: application/json
 {
   "name": "",
   "price": 1,
-  "details": "Servicio de mesa"
+  "details": "Servicio de mesa",
+  "categoryId": 2
 }
 
 ### POST Crear producto - Error 2
@@ -26,7 +28,8 @@ Content-Type: application/json
 {
   "name": "Pan y picos",
   "price": -1,
-  "details": "Servicio de mesa"
+  "details": "Servicio de mesa",
+  "categoryId": 2
 }
 
 
@@ -37,7 +40,8 @@ Content-Type: application/json
 {
   "name": "Pan y picos",
   "price": 1,
-  "details": null
+  "details": null,
+  "categoryId": 2
 }
 
 ### GET obtener todos los productos

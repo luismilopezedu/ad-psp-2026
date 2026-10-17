@@ -5,7 +5,8 @@ import com.salesianos.dam.primerjemplo.model.Product;
 public record EditProductDto(
         String name,
         Double price,
-        String details
+        String details,
+        Long categoryId
 ) {
 
     public Product to() {

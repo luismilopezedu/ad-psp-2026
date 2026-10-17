@@ -10,6 +10,8 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class DataSeed {
@@ -25,18 +27,22 @@ public class DataSeed {
             datos de ejemplo
          */
 
-        Category category = Category.builder()
+        Category c1 = Category.builder()
                 .name("Electrónica")
                 .build();
 
-        categoryRepository.save(category);
+        Category c2 = Category.builder()
+                .name("Alimentación")
+                .build();
+
+        categoryRepository.saveAll(List.of(c1,c2));
 
 
         Product p1 = Product.builder()
                 .name("TV 65")
                 .price(499.99)
                 .details("Smart TV 65")
-                .category(category)
+                .category(c1)
                 .build();
 
         productRepository.save(p1);
