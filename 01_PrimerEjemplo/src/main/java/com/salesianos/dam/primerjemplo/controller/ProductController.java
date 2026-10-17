@@ -8,10 +8,15 @@ import com.salesianos.dam.primerjemplo.model.Product;
 import com.salesianos.dam.primerjemplo.repo.ProductRepository;
 import com.salesianos.dam.primerjemplo.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -37,16 +42,138 @@ public class ProductController {
 
     }
 
+    /*
+    @Operation(
+    summary = "Obtener todos los productos",
+    description = "Permite obtener todos los productos del catálogo"
+)
+@ApiResponses({
+    @ApiResponse(
+        responseCode = "200",
+        description = "Listado de productos del catálogo",
+        content = @Content(
+            mediaType = "application/json",
+            array = @ArraySchema(
+                schema = @Schema(
+                    implementation = GetProductList.class
+                )
+            ),
+            examples = @ExampleObject(
+                name = "Listado de productos",
+                summary = "Ejemplo de catálogo con varios productos",
+                value = """
+                    [
+                      {
+                        "id": 15,
+                        "name": "Camiseta",
+                        "price": 19.99
+                      },
+                      {
+                        "id": 16,
+                        "name": "Pantalón",
+                        "price": 39.99
+                      },
+                      {
+                        "id": 17,
+                        "name": "Zapatillas",
+                        "price": 59.95
+                      }
+                    ]
+                    """
+            )
+        )
+    ),
+    @ApiResponse(
+        responseCode = "404",
+        description = "No se han encontrado productos",
+        content = @Content(
+            mediaType = "application/problem+json",
+            schema = @Schema(
+                implementation = ProblemDetail.class
+            )
+        )
+    )
+})
+@GetMapping
+public ResponseEntity<List<GetProductList>> getAllProducts() {
+
+    List<Product> result = productService.getAllProducts();
+
+    return ResponseEntity.ok(
+        result.stream()
+              .map(GetProductList::of)
+              .toList()
+    );
+}
+
+     */
+
     @Operation(
             summary = "Obtener todos los productos",
             description = "Permite obtener todos los productos del catálogo"
     )
     @ApiResponses(
             {
-                    @ApiResponse(description = "Listado de productos del catálogo",
-                            responseCode = "200"),
-                    @ApiResponse(description = "Error - no hay productos con los criterios de búsqueda",
-                            responseCode = "404")
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Listado de productos del catálogo",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    array = @ArraySchema(
+                                            schema = @Schema(
+                                                    implementation = GetProductList.class
+                                            )
+                                    ),
+                                    examples = @ExampleObject(
+                                            name = "Listado de productos",
+                                            summary = "Ejemplo de catálogo con varios productos",
+                                            value = """
+                    [
+                      {
+                        "id": 15,
+                        "name": "Camiseta",
+                        "price": 19.99
+                      },
+                      {
+                        "id": 16,
+                        "name": "Pantalón",
+                        "price": 39.99
+                      },
+                      {
+                        "id": 17,
+                        "name": "Zapatillas",
+                        "price": 59.95
+                      }
+                    ]
+                    """
+                                    )
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "No hay productos con esos criterios de búsqueda",
+                            content = @Content(
+                                    mediaType = "application/problem+json",
+                                    schema = @Schema(
+                                            implementation = ProblemDetail.class
+                                    ),
+                                    examples = @ExampleObject(
+                                            name = "Error 404",
+                                            summary = "Mensaje de error informando de que no hay productos",
+                                            value = """
+                                                    
+                                                    {
+                                                      "detail": "Products not found",
+                                                      "instance": "/api/product",
+                                                      "status": 404,
+                                                      "title": "Recurso no encontrado",
+                                                      "type": "https://example.com/errors/product-not-found"
+                                                    }
+                                                    
+                                                    """
+                                    )
+                            )
+                    )
             }
     )
     @GetMapping
