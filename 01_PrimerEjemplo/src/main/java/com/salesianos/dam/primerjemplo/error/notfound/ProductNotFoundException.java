@@ -1,6 +1,6 @@
-package com.salesianos.dam.primerjemplo.error;
+package com.salesianos.dam.primerjemplo.error.notfound;
 
-public class ProductNotFoundException extends RuntimeException {
+public class ProductNotFoundException extends EntityNotFoundException {
 
     public ProductNotFoundException() {
         super("Products not found");
