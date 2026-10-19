@@ -3,6 +3,8 @@ package com.salesianos.dam.primerjemplo.error;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.ElementKind;
+import jakarta.validation.Path;
 import lombok.Builder;
 import org.jspecify.annotations.Nullable;
 import org.springframework.http.*;
@@ -16,7 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
+
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -114,20 +116,29 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         }
 
-
         public static ApiValidationSubError from(ConstraintViolation v) {
             return ApiValidationSubError.builder()
                     .message(v.getMessage())
                     .rejectedValue(v.getInvalidValue())
-                    .object(v.getRootBean().getClass().getSimpleName())
-                    /*.field(
-                            Optional.ofNullable(v.getPropertyPath())
-                                    .map(PathImpl.class::cast)
-                                    .map(PathImpl::getLeafNode)
-                                    .map(NodeImpl::asString)
-                                    .orElse("unknown")
-                    )*/
+                    .object(v.getRootBeanClass().getSimpleName())
+                    .field(getFieldName(v))
                     .build();
+        }
+
+        /*
+            Método que permite obtener el nombre del campo sobre
+            el que se ha producido la violación
+         */
+        private static String getFieldName(ConstraintViolation<?> v) {
+
+            String field = null;
+
+            for (Path.Node node : v.getPropertyPath()) {
+                if (node.getKind() == ElementKind.PROPERTY || node.getKind() == ElementKind.PARAMETER) {
+                    field = node.getName() != null ? node.getName() : node.toString();
+                }
+            }
+            return field;
         }
     }
 }
