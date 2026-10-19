@@ -6,6 +6,9 @@ import com.salesianos.dam.primerjemplo.dto.GetProductList;
 import com.salesianos.dam.primerjemplo.model.Product;
 import com.salesianos.dam.primerjemplo.repo.ProductRepository;
 import com.salesianos.dam.primerjemplo.service.ProductService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.PositiveOrZero;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -17,6 +20,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +30,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/product")
+@Validated
 @Tag(name="Product Controller", description = "Un controlador de productos")
 public class ProductController {
 
@@ -32,7 +38,8 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    public ResponseEntity<GetProductDetail> addProduct(@RequestBody EditProductDto product) {
+    public ResponseEntity<GetProductDetail> addProduct(
+            @Valid @RequestBody EditProductDto product) {
 
         return ResponseEntity.status(201)
                 .body(GetProductDetail.of(productService.addProduct(product)));
@@ -130,7 +137,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GetProductDetail> getProductById(@PathVariable Long id) {
+    public ResponseEntity<GetProductDetail> getProductById(@PathVariable @Min(value = 1) Long id) {
 
         return ResponseEntity.ok(GetProductDetail.of(productService.getProductById(id)));
 

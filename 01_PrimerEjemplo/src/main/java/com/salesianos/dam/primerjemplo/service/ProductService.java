@@ -88,13 +88,13 @@ public class ProductService {
 
 
     private void validateProduct(EditProductDto editProductDto) {
-        if (!StringUtils.hasText(editProductDto.name())
+        /*if (!StringUtils.hasText(editProductDto.name())
                 || !StringUtils.hasText(editProductDto.details())) {
             throw new InvalidProductException("Product name and details are required");
         }
         if (editProductDto.price() < 0) {
             throw new InvalidProductException("Price is required");
-        }
+        }*/
     }
 
 
