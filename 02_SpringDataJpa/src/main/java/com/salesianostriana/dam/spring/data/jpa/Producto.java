@@ -14,7 +14,6 @@ import java.util.Objects;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "product")
 public class Producto {
 
     @Id @GeneratedValue
@@ -25,6 +24,10 @@ public class Producto {
     private String nombre;
 
     private double precio;
+
+    @ManyToOne
+    @JoinColumn(name = "id_categoria")
+    private Categoria categoria;
 
     @Override
     public final boolean equals(Object o) {
