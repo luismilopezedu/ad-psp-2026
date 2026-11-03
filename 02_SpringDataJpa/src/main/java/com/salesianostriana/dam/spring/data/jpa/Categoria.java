@@ -23,10 +23,26 @@ public class Categoria {
 
     private String nombre;
 
-    @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "categoria")
     @Builder.Default
     @ToString.Exclude
     private List<Producto> productos = new ArrayList<>();
+
+    /*
+    Métodos helper - Producto
+     */
+
+    public Categoria addProducto(Producto p) {
+        productos.add(p);
+        p.setCategoria(this);
+        return this;
+    }
+
+    public Categoria removeProducto(Producto p) {
+        productos.remove(p);
+        p.setCategoria(null);
+        return this;
+    }
 
 
     @Override

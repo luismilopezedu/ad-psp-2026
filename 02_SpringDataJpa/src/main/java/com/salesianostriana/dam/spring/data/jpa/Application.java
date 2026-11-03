@@ -26,9 +26,14 @@ public class Application {
 
 			Producto p1 = Producto.builder()
 					.nombre("Macbook Pro con pantalla táctil")
-					.categoria(c)
+					//.categoria(c)
 					.precio(3400.0)
 					.build();
+
+
+			c.addProducto(p1);
+
+			System.out.println("Productos en categoria: " + c.getProductos().size());
 
 			productoRepository.save(p1);
 
@@ -36,9 +41,13 @@ public class Application {
 			Categoria deBaseDeDatos = categoriaRepository.findById(1L)
 					.orElse(null);
 
-			System.out.println(deBaseDeDatos);
-			deBaseDeDatos.getProductos().forEach(System.out::println);
+			//System.out.println(deBaseDeDatos);
+			//deBaseDeDatos.getProductos().forEach(System.out::println);
 
+			Producto productoDeBD = productoRepository.findById(1L)
+					.orElse(null);
+
+			System.out.println(productoDeBD.getCategoria().getNombre());
 
 		};
 	}
