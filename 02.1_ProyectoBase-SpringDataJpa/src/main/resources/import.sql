@@ -1,0 +1,1 @@
+-- sentencias insert into
