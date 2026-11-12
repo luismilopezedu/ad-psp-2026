@@ -31,6 +31,10 @@ public class ComprobadorConsultas {
         System.out.println("\n========== CARTELERA: CONSULTAS DERIVADAS ==========");
         mostrarNumero("Películas cargadas (deben ser 12)", peliculaRepository.count());
 
+        peliculaRepository.findFirstByTituloOrderByDuracionMinutosDesc("Código rojo")
+                .ifPresent(pelicula -> System.out.println("Película encontrada: " + pelicula));
+
+
         // =============================================================
         // ACTIVIDAD 3: PROGRAMACIÓN GUIADA
         // Primero declara cada método en PeliculaRepository.

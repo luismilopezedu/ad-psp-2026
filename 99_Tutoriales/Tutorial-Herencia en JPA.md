@@ -1,4 +1,3 @@
-> Note
 
 # Tutorial Completo: Estrategias de Herencia en JPA, Hibernate y Spring Data JPA
 
@@ -391,6 +390,3 @@ Para tomar la decisión adecuada en tu proyecto, consulta esta matriz de recomen
 | **Alto rendimiento en lecturas polimórficas** | **`SINGLE_TABLE`** | La lectura no requiere ningún `JOIN` ni `UNION`, siendo la más veloz [7, 8]. |
 | **Estricta integridad de datos (`NOT NULL` en subclases)** | **`JOINED`** | Permite definir esquemas SQL limpios y normalizados con restricciones verdaderas [9, 12]. |
 | **Consultas polimórficas frecuentes sobre colecciones grandes** | **Evitar `TABLE_PER_CLASS`** | Las consultas polimórficas con `UNION` escalan muy mal en bases de datos [12, 15]. |
-
----
-💡 *¿Te gustaría añadir un ejercicio práctico o un repositorio funcional de ejemplo para probar estas cuatro estrategias con un test de rendimiento?*
