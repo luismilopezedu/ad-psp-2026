@@ -1,0 +1,125 @@
+=== Tutorial 2 / Ej.1: derivada ===
+Optional[Cliente[id=1, nombre=Ana López, email=ana@ejemplo.com, activo=true]]
+
+=== Tutorial 2 / Ej.1: JPQL ===
+Optional[Cliente[id=1, nombre=Ana López, email=ana@ejemplo.com, activo=true]]
+
+=== Tutorial 2 / Ej.1: parámetro posicional ===
+Cliente[id=1, nombre=Ana López, email=ana@ejemplo.com, activo=true]
+
+=== Tutorial 3 / Ej.2: relación derivada ===
+Producto[id=1, nombre=Portátil Pro, precio=1200.00]
+Producto[id=2, nombre=Teclado mecánico, precio=80.00]
+Producto[id=3, nombre=Ratón inalámbrico, precio=25.00]
+Producto[id=4, nombre=Monitor 27, precio=250.00]
+Producto[id=5, nombre=Auriculares, precio=60.00]
+Producto[id=6, nombre=Webcam, precio=45.00]
+Producto[id=7, nombre=Cable USB, precio=10.00]
+Producto[id=8, nombre=Memoria USB, precio=15.00]
+Producto[id=9, nombre=Disco SSD, precio=100.00]
+Producto[id=10, nombre=Router, precio=90.00]
+Producto[id=11, nombre=Impresora, precio=180.00]
+Producto[id=12, nombre=Altavoces, precio=35.00]
+
+=== Tutorial 3 / Ej.2 y Bonus 3: JOIN ===
+Producto[id=1, nombre=Portátil Pro, precio=1200.00]
+Producto[id=2, nombre=Teclado mecánico, precio=80.00]
+Producto[id=3, nombre=Ratón inalámbrico, precio=25.00]
+Producto[id=4, nombre=Monitor 27, precio=250.00]
+Producto[id=5, nombre=Auriculares, precio=60.00]
+Producto[id=6, nombre=Webcam, precio=45.00]
+Producto[id=7, nombre=Cable USB, precio=10.00]
+Producto[id=8, nombre=Memoria USB, precio=15.00]
+Producto[id=9, nombre=Disco SSD, precio=100.00]
+Producto[id=10, nombre=Router, precio=90.00]
+Producto[id=11, nombre=Impresora, precio=180.00]
+Producto[id=12, nombre=Altavoces, precio=35.00]
+
+=== Tutorial 3 / Ej.2: JOIN FETCH ===
+Producto[id=1, nombre=Portátil Pro, precio=1200.00]
+Producto[id=4, nombre=Monitor 27, precio=250.00]
+Producto[id=9, nombre=Disco SSD, precio=100.00]
+Producto[id=11, nombre=Impresora, precio=180.00]
+Producto[id=14, nombre=Mesa, precio=150.00]
+Portátil Pro -> Informática
+Monitor 27 -> Informática
+Disco SSD -> Informática
+Impresora -> Informática
+Mesa -> Hogar
+
+=== Tutorial 4 / Ej.3: BETWEEN e IN ===
+Pedido[id=1, fecha=2026-01-10T10:00, total=1280.00, estado=PENDIENTE]
+Pedido[id=3, fecha=2026-01-20T09:00, total=250.00, estado=EN_PROCESO]
+Pedido[id=8, fecha=2026-01-01T00:00, total=300.00, estado=PENDIENTE]
+
+=== Tutorial 5 / Ej.4: LOWER, CONCAT y COALESCE ===
+Producto[id=2, nombre=Teclado mecánico, precio=80.00]
+
+=== Tutorial 6 / Ej.5: página 0 por precio ===
+Producto[id=7, nombre=Cable USB, precio=10.00]
+Producto[id=8, nombre=Memoria USB, precio=15.00]
+Producto[id=3, nombre=Ratón inalámbrico, precio=25.00]
+Producto[id=12, nombre=Altavoces, precio=35.00]
+Producto[id=6, nombre=Webcam, precio=45.00]
+Producto[id=5, nombre=Auriculares, precio=60.00]
+Producto[id=2, nombre=Teclado mecánico, precio=80.00]
+Producto[id=10, nombre=Router, precio=90.00]
+Producto[id=9, nombre=Disco SSD, precio=100.00]
+Producto[id=11, nombre=Impresora, precio=180.00]
+Total=12, páginas=2
+
+=== Tutorial 7: DTO de tres argumentos ===
+ResumenPedidoDTO[id=2, cliente=Ana López, total=50.00, fecha=null]
+ResumenPedidoDTO[id=4, cliente=Bruno Díaz, total=500.00, fecha=null]
+ResumenPedidoDTO[id=6, cliente=Carla Ruiz, total=700.00, fecha=null]
+
+=== Bonus 1: cliente activo ===
+Optional[Cliente[id=1, nombre=Ana López, email=ana@ejemplo.com, activo=true]]
+
+=== Bonus 2: búsqueda parcial ===
+Producto[id=4, nombre=Monitor 27, precio=250.00]
+
+=== Bonus 4: pedidos con cliente ===
+Pedido[id=1, fecha=2026-01-10T10:00, total=1280.00, estado=PENDIENTE]
+Pedido[id=7, fecha=2026-02-01T00:00, total=90.00, estado=PENDIENTE]
+Pedido[id=8, fecha=2026-01-01T00:00, total=300.00, estado=PENDIENTE]
+1 -> Ana López
+7 -> Ana López
+8 -> Bruno Díaz
+
+=== Bonus 5: IN ===
+Pedido[id=1, fecha=2026-01-10T10:00, total=1280.00, estado=PENDIENTE]
+Pedido[id=3, fecha=2026-01-20T09:00, total=250.00, estado=EN_PROCESO]
+Pedido[id=7, fecha=2026-02-01T00:00, total=90.00, estado=PENDIENTE]
+Pedido[id=8, fecha=2026-01-01T00:00, total=300.00, estado=PENDIENTE]
+
+=== Bonus 6: fechas y total ===
+Pedido[id=1, fecha=2026-01-10T10:00, total=1280.00, estado=PENDIENTE]
+Pedido[id=4, fecha=2026-01-31T23:59:59, total=500.00, estado=ENVIADO]
+Pedido[id=8, fecha=2026-01-01T00:00, total=300.00, estado=PENDIENTE]
+
+=== Bonus 7: COALESCE (incluye precio nulo) ===
+Producto[id=15, nombre=Producto sin precio, precio=null]
+Producto[id=16, nombre=Muestra gratuita, precio=0.00]
+
+=== Bonus 8: EXISTS ===
+Cliente[id=1, nombre=Ana López, email=ana@ejemplo.com, activo=true]
+Cliente[id=3, nombre=Carla Ruiz, email=carla@ejemplo.com, activo=false]
+
+=== Bonus 9: página 0 por nombre ===
+Producto[id=12, nombre=Altavoces, precio=35.00]
+Producto[id=5, nombre=Auriculares, precio=60.00]
+Producto[id=7, nombre=Cable USB, precio=10.00]
+Producto[id=9, nombre=Disco SSD, precio=100.00]
+Producto[id=11, nombre=Impresora, precio=180.00]
+Producto[id=8, nombre=Memoria USB, precio=15.00]
+Producto[id=4, nombre=Monitor 27, precio=250.00]
+Producto[id=1, nombre=Portátil Pro, precio=1200.00]
+Producto[id=3, nombre=Ratón inalámbrico, precio=25.00]
+Producto[id=10, nombre=Router, precio=90.00]
+
+=== Bonus 10: DTO de cuatro argumentos ===
+ResumenPedidoDTO[id=2, cliente=Ana López, total=50.00, fecha=2026-01-15T12:00]
+ResumenPedidoDTO[id=4, cliente=Bruno Díaz, total=500.00, fecha=2026-01-31T23:59:59]
+ResumenPedidoDTO[id=6, cliente=Carla Ruiz, total=700.00, fecha=2025-12-31T23:59:59]
+=== FIN DE LA DEMOSTRACIÓN JPQL ===
