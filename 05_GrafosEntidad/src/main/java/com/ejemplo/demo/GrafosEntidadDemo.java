@@ -20,7 +20,7 @@ public class GrafosEntidadDemo {
  @PostConstruct
  public void ejecutar() {
   System.out.println("\n=== 3.1: Cliente -> Direccion ===");
-  var ana=clientes.findWithDireccionByEmail("ana@ejemplo.com").orElseThrow();
+  var ana=clientes.findByEmail("ana@ejemplo.com").orElseThrow();
   System.out.println(ana.getNombre()+" -> "+ana.getDireccion().getCiudad());
 
   System.out.println("\n=== 3.2: rutas compuestas ===");

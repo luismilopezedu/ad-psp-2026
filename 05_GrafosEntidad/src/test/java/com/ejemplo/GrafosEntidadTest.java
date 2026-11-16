@@ -23,11 +23,11 @@ class GrafosEntidadTest {
     .findFirst().orElseThrow().getId();
  }
  @Test void direccionYRelacionOpcional() {
-  var ana=clientes.findWithDireccionByEmail("ana@ejemplo.com").orElseThrow();
+  var ana=clientes.findByEmail("ana@ejemplo.com").orElseThrow();
   assertThat(ana.getDireccion().getCiudad()).isEqualTo("Sevilla");
   assertThat(Hibernate.isInitialized(ana.getPedidos())).isFalse();
-  assertThat(clientes.findWithDireccionByEmail("daniel@ejemplo.com").orElseThrow().getDireccion()).isNull();
-  assertThat(clientes.findWithDireccionByEmail("nadie@ejemplo.com")).isEmpty();
+  assertThat(clientes.findByEmail("daniel@ejemplo.com").orElseThrow().getDireccion()).isNull();
+  assertThat(clientes.findByEmail("nadie@ejemplo.com")).isEmpty();
  }
  @Test void rutasCompuestas() {
   var lista=pedidos.findByEstado("PENDIENTE");

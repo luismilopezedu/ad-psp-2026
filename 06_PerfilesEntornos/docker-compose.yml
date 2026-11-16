@@ -1,0 +1,39 @@
+name: perfiles-entornos
+
+services:
+  postgres-dev:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: tienda_dev
+      POSTGRES_USER: ${DEV_DB_USERNAME:-tienda_dev}
+      POSTGRES_PASSWORD: ${DEV_DB_PASSWORD:-dev_local}
+    ports:
+      - "127.0.0.1:5433:5432"
+    # El directorio de datos desaparece al parar el contenedor.
+    tmpfs:
+      - /var/lib/postgresql/data:size=256m
+    healthcheck:
+      test: ["CMD-SHELL", 'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"']
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  postgres-prod:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: tienda_prod
+      POSTGRES_USER: ${DB_USERNAME:?Define DB_USERNAME en .env}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Define DB_PASSWORD en .env}
+    ports:
+      - "127.0.0.1:5434:5432"
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
+      - ./docker/postgres/prod/01-schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", 'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"']
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  postgres_prod_data:

@@ -17,6 +17,18 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
  @Query("SELECT p FROM Producto p JOIN FETCH p.categoria WHERE p.precio >= :precioMinimo")
     List<Producto> buscarProductosConCategoriaCargada(@Param("precioMinimo") BigDecimal precioMinimo);
 
+ /*
+    Con JPQL, seleccionar los productos, filtrando por el ID de categoría
+    pero asociando (¿JOIN? ¿FETCH?) cada producto con su categoría.
+  */
+ @Query("""
+        select p
+        from Producto p  
+        join fetch p.categoria c 
+        where c.id = ?1        
+    """)
+ List<Producto> buscarProductosConCategoriaCargadaPorId(Long idCategoria);
+
  @Query("SELECT p FROM Producto p " +
            "WHERE LOWER(p.nombre) LIKE LOWER(CONCAT('%', :filtro, '%')) " +
            "AND COALESCE(p.precio, 0) > :precioMinimo")

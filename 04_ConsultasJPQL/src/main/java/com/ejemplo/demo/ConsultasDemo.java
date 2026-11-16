@@ -34,6 +34,12 @@ public class ConsultasDemo {
   mostrar("Tutorial 3 / Ej.2 y Bonus 3: JOIN", productos.buscarPorNombreCategoria("Informática"));
   var cargados=productos.buscarProductosConCategoriaCargada(100.0);
   mostrar("Tutorial 3 / Ej.2: JOIN FETCH", cargados);
+
+
+
+  System.out.println("==== CONSULTA NUEVA ====");
+  mostrar("Consulta JOIN FETCH", productos.buscarProductosConCategoriaCargadaPorId(1L));
+  System.out.println("===== FIN NUEVA =========");
   cargados.forEach(p -> System.out.println(p.getNombre()+" -> "+p.getCategoria().getNombre()));
   mostrar("Tutorial 4 / Ej.3: BETWEEN e IN", pedidos.buscarPorRangoFechasYEstados(inicio,fin,List.of("PENDIENTE","EN_PROCESO")));
   mostrar("Tutorial 5 / Ej.4: LOWER, CONCAT y COALESCE", productos.buscarPorFiltroTextoYPrecio("TECLADO",50.0));

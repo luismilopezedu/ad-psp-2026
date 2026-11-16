@@ -3,6 +3,17 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+
+/*
+  Obtener los clientes con pedidos PENDIENTES superiores a X €.
+  Debe aparecer los clientes, su direccion, los pedidos,
+  las líneas de pedido, los productos y su categoría.
+
+  Se puede usar JPQL o derivadas, y hay que usar grafos de entidad con subgrafos.
+
+ */
+
+
 @Entity
 @Table(name = "clientes")
 public class Cliente {
