@@ -1,8 +1,6 @@
-> Note
-
 # Tutorial Maestro: Gestión Multientorno en Spring Boot con Perfiles y Bases de Datos (H2 vs. PostgreSQL)
 
-¡Hola de nuevo! Como docente, me alegra acompañarte en este tutorial dedicado a uno de los pilares de la arquitectura de aplicaciones empresariales con **Spring Boot**: la **gestión de entornos mediante Perfiles (*Spring Profiles*)** [1].
+Me alegra acompañarte en este tutorial dedicado a uno de los pilares de la arquitectura de aplicaciones empresariales con **Spring Boot**: la **gestión de entornos mediante Perfiles (*Spring Profiles*)** [1].
 
 ---
 
@@ -165,7 +163,7 @@ En producción nos conectamos a una instancia física de **PostgreSQL**. Por mot
 # CONFIGURACIÓN DATASOURCE: POSTGRESQL (Producción)
 # -------------------------------------------------------------
 spring.datasource.driver-class-name=org.postgresql.Driver
-spring.datasource.url=jdbc:postgresql://[suspicious link removed]
+spring.datasource.url=jdbc:postgresql://...
 spring.datasource.username=${DB_USERNAME}
 spring.datasource.password=${DB_PASSWORD}
 
@@ -176,7 +174,7 @@ spring.datasource.hikari.minimum-idle=5
 # -------------------------------------------------------------
 # CONFIGURACIÓN JPA / HIBERNATE PARA PRODUCCIÓN
 # -------------------------------------------------------------
-# ⚠️ NUNCA usar create-drop ni update en producción. 
+# ⚠️ NO DEBERÍAMOS usar create-drop ni update en producción. 
 # 'validate' comprueba que las tablas coinciden con las entidades Java sin modificar nada.
 spring.jpa.hibernate.ddl-auto=validate
 
@@ -222,7 +220,3 @@ En las configuraciones de ejecución (*Run/Debug Configurations*), puedes escrib
 | **Consola H2** | Habilitada (`/h2-console`) | Deshabilitada |
 | **Visualización SQL (`show-sql`)** | `true` (en consola) [2, 16] | `false` (logs limpios) |
 | **Carga de Datos (`DataLoader`)** | Activa mediante `@Profile("dev")` | Inactiva / Omitida [1, 4] |
-
----
-
-💡 ¿Te gustaría ver un ejemplo de cómo configurar **Flyway** o **Liquibase** junto a los perfiles de Spring Boot para gestionar la evolución del esquema de la base de datos de manera profesional?

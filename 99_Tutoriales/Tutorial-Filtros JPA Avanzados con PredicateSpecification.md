@@ -1,8 +1,6 @@
-> Note
-
 # Tutorial Maestro: Endpoint de Filtrado Avanzado con `PredicateSpecification` en Spring Data JPA
 
-¡Hola! Te doy la bienvenida a este tutorial avanzado. En el desarrollo de aplicaciones empresariales reales, los clientes web y móviles no se conforman con búsquedas simples por un solo campo. Necesitan **paneles de búsqueda multicriterio** (filtrar productos por rango de precios, nombre, categoría, disponibilidad, etc., combinando cualquier número de estos filtros de forma opcional y dinámica).
+En el desarrollo de aplicaciones empresariales reales, los clientes web y móviles no se conforman con búsquedas simples por un solo campo. Necesitan **paneles de búsqueda multicriterio** (filtrar productos por rango de precios, nombre, categoría, disponibilidad, etc., combinando cualquier número de estos filtros de forma opcional y dinámica).
 
 Para evitar escribir decenas de métodos en el repositorio o consultas JPQL estáticas inmanejables, Spring Data JPA ofrece el mecanismo de **Especificaciones**, renovado en versiones recientes con la API **`PredicateSpecification`**.
 
@@ -427,92 +425,7 @@ public class ProductoController {
 
 Para que el sistema sea robusto, cualquier incorrección en los parámetros de filtrado enviados por el cliente (por ejemplo, enviar un precio negativo o un nombre demasiado corto) debe ser capturada **de forma sistemática y centralizada**.
 
-### DTO Estándar de Respuesta de Error (`ErrorResponseDTO.java`)
-
-```java
-package com.ejemplo.dto;
-
-import java.time.LocalDateTime;
-import java.util.Map;
-
-public class ErrorResponseDTO {
-    private LocalDateTime timestamp;
-    private int status;
-    private String error;
-    private Map<String, String> validaciones;
-
-    public ErrorResponseDTO(int status, String error, Map<String, String> validaciones) {
-        this.timestamp = LocalDateTime.now();
-        this.status = status;
-        this.error = error;
-        this.validaciones = validaciones;
-    }
-
-    // Getters...
-    public LocalDateTime getTimestamp() { return timestamp; }
-    public int getStatus() { return status; }
-    public String getError() { return error; }
-    public Map<String, String> getValidaciones() { return validaciones; }
-}
-```
-
----
-
-### Gestor Global de Excepciones (`GlobalExceptionHandler.java`)
-
-Mediante la anotación **`@RestControllerAdvice`**, capturamos las excepciones lanzadas por el motor de Bean Validation (`MethodArgumentNotValidException`) al evaluar la anotación `@Valid`:
-
-```java
-package com.ejemplo.excepcion;
-
-import com.ejemplo.dto.ErrorResponseDTO;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.HashMap;
-import java.util.Map;
-
-@RestControllerAdvice
-public class GlobalExceptionHandler {
-
-    /**
-     * Captura los errores de validación de @Valid @RequestBody (Alternativa C)
-     */
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponseDTO> manejarValidacionesDTO(MethodArgumentNotValidException ex) {
-        Map<String, String> erroresCampos = new HashMap<>();
-
-        for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
-            erroresCampos.put(fieldError.getField(), fieldError.getDefaultMessage());
-        }
-
-        ErrorResponseDTO errorResponse = new ErrorResponseDTO(
-                HttpStatus.BAD_REQUEST.value(),
-                "Error de validación en los parámetros de filtrado",
-                erroresCampos
-        );
-
-        return ResponseEntity.badRequest().body(errorResponse);
-    }
-}
-```
-
-#### Ejemplo de Respuesta JSON devuelta ante un filtro inválido (HTTP 400 Bad Request):
-```json
-{
-  "timestamp": "2026-11-13T14:48:59",
-  "status": 400,
-  "error": "Error de validación en los parámetros de filtrado",
-  "validaciones": {
-    "precioMin": "El precio mínimo no puede ser negativo",
-    "nombre": "El nombre de búsqueda debe tener entre 2 y 50 caracteres"
-  }
-}
-```
+Aquí podemos aplicar todo lo que hemos aprendido sobre  `ProblemDetail` y su uso desde una clase anotada con `@RestControllerAdvice` y que extienda a `ResponseEntityExceptionHandler`.
 
 ---
 
@@ -540,7 +453,3 @@ public class GlobalExceptionHandler {
        ▼
 [ Respuesta JSON Paginada (Page<ProductoDTO>) ]
 ```
-
----
-
-💡 *¿Te gustaría ver cómo integrar **Vector Search** de Spring Data para combinar filtros por especificaciones con búsquedas semánticas basadas en IA?*
