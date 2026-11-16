@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: jpql
+      POSTGRES_USER: jpql
+      POSTGRES_PASSWORD: jpql
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jpql -d jpql"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
