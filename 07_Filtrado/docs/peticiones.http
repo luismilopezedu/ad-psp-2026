@@ -1,0 +1,73 @@
+@baseUrl = http://localhost:8080/api/v1/productos
+
+### C: sin filtros; 16 elementos, primera página de 10
+POST {{baseUrl}}/search
+Content-Type: application/json
+
+{}
+
+### C: segunda página; 6 elementos
+POST {{baseUrl}}/search?page=1&size=10
+Content-Type: application/json
+
+{}
+
+### C: cinco filtros; Teclado mecánico (límites inclusivos)
+POST {{baseUrl}}/search?sort=precio,asc
+Content-Type: application/json
+
+{"nombre":"TECLADO","precioMin":80,"precioMax":80,"nombreCategoria":"INFORMÁTICA","activo":true}
+
+### C: estado false; 4 elementos
+POST {{baseUrl}}/search
+Content-Type: application/json
+
+{"activo":false}
+
+### C: rango 25..35 ordenado; Altavoces, Lámpara, Ratón inalámbrico
+POST {{baseUrl}}/search?sort=precio,desc
+Content-Type: application/json
+
+{"precioMin":25,"precioMax":35}
+
+### C: precio cero; Muestra gratuita (excluye null)
+POST {{baseUrl}}/search
+Content-Type: application/json
+
+{"precioMax":0}
+
+### C: categoría vacía
+POST {{baseUrl}}/search
+Content-Type: application/json
+
+{"nombreCategoria":"Sin productos"}
+
+### A: parámetros individuales; Teclado mecánico
+GET {{baseUrl}}/search-a?nombre=TECLADO&precioMin=80&precioMax=80
+
+### B: mapa de parámetros; 4 inactivos
+GET {{baseUrl}}/search-b?activo=false&sort=id,asc
+
+### B: categoría y paginación; 2 elementos en la segunda página
+GET {{baseUrl}}/search-b?nombreCategoria=Inform%C3%A1tica&page=1&size=10&sort=id,asc
+
+### C: validación del DTO; HTTP 400 ProblemDetail
+POST {{baseUrl}}/search
+Content-Type: application/json
+
+{"nombre":"a","precioMin":-1,"precioMax":10001}
+
+### A: validación de parámetros; HTTP 400 ProblemDetail
+GET {{baseUrl}}/search-a?nombre=a
+
+### B: fallo de conversión manual; HTTP 400 ProblemDetail
+GET {{baseUrl}}/search-b?precioMin=abc
+
+### B: booleano inválido; HTTP 400 ProblemDetail
+GET {{baseUrl}}/search-b?activo=quizas
+
+### C: JSON inválido; HTTP 400 ProblemDetail
+POST {{baseUrl}}/search
+Content-Type: application/json
+
+{"precioMin":
