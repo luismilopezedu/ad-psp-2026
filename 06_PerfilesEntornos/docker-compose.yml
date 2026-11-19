@@ -2,7 +2,7 @@ name: perfiles-entornos
 
 services:
   postgres-dev:
-    image: postgres:17
+    image: postgres:17-alpine
     environment:
       POSTGRES_DB: tienda_dev
       POSTGRES_USER: ${DEV_DB_USERNAME:-tienda_dev}
@@ -19,11 +19,11 @@ services:
       retries: 20
 
   postgres-prod:
-    image: postgres:17
+    image: postgres:17-alpine
     environment:
       POSTGRES_DB: tienda_prod
-      POSTGRES_USER: ${DB_USERNAME:?Define DB_USERNAME en .env}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:?Define DB_PASSWORD en .env}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - "127.0.0.1:5434:5432"
     volumes:
