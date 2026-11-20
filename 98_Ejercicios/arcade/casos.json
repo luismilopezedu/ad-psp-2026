@@ -1,0 +1,550 @@
+{
+  "1": [
+    [
+      "POST",
+      "/juegos",
+      {
+        "id": "J7",
+        "titulo": "Bruma",
+        "genero": "PUZLE",
+        "precio": 9,
+        "plataforma": "PC"
+      },
+      201,
+      {
+        "id": "J7",
+        "titulo": "Bruma",
+        "precio": 9
+      }
+    ],
+    [
+      "GET",
+      "/juegos/J7",
+      null,
+      200,
+      {
+        "id": "J7",
+        "titulo": "Bruma",
+        "precio": 9
+      }
+    ],
+    [
+      "GET",
+      "/juegos",
+      null,
+      200,
+      [
+        "J1",
+        "J2",
+        "J3",
+        "J4",
+        "J5",
+        "J6",
+        "J7"
+      ]
+    ],
+    [
+      "GET",
+      "/plataformas",
+      null,
+      200,
+      [
+        "PC",
+        "SW",
+        "VR"
+      ]
+    ],
+    [
+      "GET",
+      "/inventario/total",
+      null,
+      200,
+      7
+    ],
+    [
+      "GET",
+      "/juegos/X",
+      null,
+      404,
+      null
+    ]
+  ],
+  "2": [
+    [
+      "GET",
+      "/juegos/J1/plataforma",
+      null,
+      200,
+      "PC"
+    ],
+    [
+      "GET",
+      "/juegos/J1/logros",
+      null,
+      200,
+      [
+        "L1",
+        "L2"
+      ]
+    ],
+    [
+      "DELETE",
+      "/juegos/J1",
+      null,
+      204,
+      null
+    ],
+    [
+      "GET",
+      "/archivo/visibles",
+      null,
+      200,
+      5
+    ],
+    [
+      "GET",
+      "/archivo/auditoria-j1",
+      null,
+      200,
+      {
+        "retirado": true,
+        "logrosOriginales": 0,
+        "plataformaExiste": true
+      }
+    ],
+    [
+      "GET",
+      "/juegos/J1",
+      null,
+      404,
+      null
+    ],
+    [
+      "GET",
+      "/juegos/J3/logros",
+      null,
+      200,
+      [
+        "L3"
+      ]
+    ]
+  ],
+  "3": [
+    [
+      "GET",
+      "/catalogo/genero?genero=CARRERAS",
+      null,
+      200,
+      [
+        "J2",
+        "J5"
+      ]
+    ],
+    [
+      "GET",
+      "/catalogo/titulo?texto=LuN",
+      null,
+      200,
+      [
+        "J1",
+        "J2",
+        "J4"
+      ]
+    ],
+    [
+      "GET",
+      "/catalogo/prioridad?preferente=PUZLE&alternativo=CARRERAS&minimo=20",
+      null,
+      200,
+      [
+        "J1",
+        "J2",
+        "J4"
+      ]
+    ],
+    [
+      "GET",
+      "/catalogo/seleccion?ids=J4,J1,X",
+      null,
+      200,
+      [
+        "J1",
+        "J4"
+      ]
+    ],
+    [
+      "GET",
+      "/catalogo/fichas?genero=PUZLE",
+      null,
+      200,
+      [
+        {
+          "id": "J1",
+          "titulo": "Luna roja",
+          "precio": 8
+        },
+        {
+          "id": "J4",
+          "titulo": "Luna azul",
+          "precio": 25
+        }
+      ]
+    ],
+    [
+      "GET",
+      "/catalogo/titulo?texto=xyz",
+      null,
+      200,
+      []
+    ]
+  ],
+  "4": [
+    [
+      "GET",
+      "/lectura/join/J2",
+      null,
+      200,
+      {
+        "id": "J2",
+        "logros": []
+      }
+    ],
+    [
+      "GET",
+      "/lectura/derivada/J1",
+      null,
+      200,
+      {
+        "id": "J1",
+        "logros": [
+          "L1",
+          "L2"
+        ]
+      }
+    ],
+    [
+      "GET",
+      "/lectura/declarada/J1",
+      null,
+      200,
+      {
+        "id": "J1",
+        "logros": [
+          "L1",
+          "L2"
+        ]
+      }
+    ],
+    [
+      "GET",
+      "/programas/PC",
+      null,
+      200,
+      {
+        "id": "PC",
+        "juegos": [
+          {
+            "id": "J1",
+            "logros": [
+              "L1",
+              "L2"
+            ]
+          },
+          {
+            "id": "J2",
+            "logros": []
+          },
+          {
+            "id": "J3",
+            "logros": [
+              "L3"
+            ]
+          }
+        ]
+      }
+    ],
+    [
+      "GET",
+      "/programas?nombre=Ordenador",
+      null,
+      200,
+      [
+        {
+          "id": "PC",
+          "juegos": [
+            {
+              "id": "J1",
+              "logros": [
+                "L1",
+                "L2"
+              ]
+            },
+            {
+              "id": "J2",
+              "logros": []
+            },
+            {
+              "id": "J3",
+              "logros": [
+                "L3"
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  ],
+  "5": [
+    [
+      "GET",
+      "/config/modo",
+      null,
+      200,
+      "LOCAL"
+    ],
+    [
+      "GET",
+      "/config/moneda",
+      null,
+      200,
+      "EUR"
+    ],
+    [
+      "GET",
+      "/config/limite",
+      null,
+      200,
+      3
+    ],
+    [
+      "GET",
+      "/config/resumen",
+      null,
+      200,
+      {
+        "modo": "LOCAL",
+        "moneda": "EUR",
+        "limite": 3
+      }
+    ],
+    [
+      "GET",
+      "/config/importe/J1",
+      null,
+      200,
+      {
+        "precio": 8,
+        "moneda": "EUR"
+      }
+    ]
+  ],
+  "6": [
+    [
+      "GET",
+      "/paginas/juegos?page=1&size=2",
+      null,
+      200,
+      {
+        "ids": [
+          "J3",
+          "J4"
+        ],
+        "total": 6,
+        "paginas": 3
+      }
+    ],
+    [
+      "GET",
+      "/paginas/plataforma?id=PC&page=1&size=2",
+      null,
+      200,
+      {
+        "ids": [
+          "J3"
+        ],
+        "total": 3,
+        "paginas": 2
+      }
+    ],
+    [
+      "GET",
+      "/paginas/genero?genero=PUZLE",
+      null,
+      200,
+      {
+        "ids": [
+          "J1",
+          "J4"
+        ],
+        "total": 2,
+        "paginas": 1
+      }
+    ],
+    [
+      "GET",
+      "/paginas/precio?minimo=20",
+      null,
+      200,
+      {
+        "ids": [
+          "J2",
+          "J3"
+        ],
+        "total": 3,
+        "paginas": 2
+      }
+    ],
+    [
+      "GET",
+      "/paginas/logro?nombre=Meta&page=1&size=1",
+      null,
+      200,
+      {
+        "ids": [
+          "J3"
+        ],
+        "total": 2,
+        "paginas": 2
+      }
+    ],
+    [
+      "GET",
+      "/paginas/logro?nombre=Ausente",
+      null,
+      200,
+      {
+        "ids": [],
+        "total": 0,
+        "paginas": 0
+      }
+    ],
+    [
+      "GET",
+      "/paginas/juegos?size=0",
+      null,
+      400,
+      null
+    ],
+    [
+      "GET",
+      "/paginas/juegos?page=10",
+      null,
+      200,
+      {
+        "ids": [],
+        "total": 6,
+        "paginas": 3
+      }
+    ]
+  ],
+  "7": [
+    [
+      "GET",
+      "/buscar/rapida?genero=CARRERAS&minimo=15",
+      null,
+      200,
+      {
+        "ids": [
+          "J2"
+        ],
+        "total": 1,
+        "paginas": 1
+      }
+    ],
+    [
+      "POST",
+      "/buscar/avanzada",
+      {
+        "generos": [
+          "PUZLE",
+          "CARRERAS"
+        ],
+        "minimo": 15
+      },
+      200,
+      {
+        "ids": [
+          "J2",
+          "J4"
+        ],
+        "total": 2,
+        "paginas": 1
+      }
+    ],
+    [
+      "GET",
+      "/buscar/flexible?genero=PUZLE&genero=CARRERAS&minimo=15&size=1&page=1",
+      null,
+      200,
+      {
+        "ids": [
+          "J4"
+        ],
+        "total": 2,
+        "paginas": 2
+      }
+    ],
+    [
+      "GET",
+      "/buscar/puzles",
+      null,
+      200,
+      {
+        "ids": [
+          "J1",
+          "J4"
+        ],
+        "total": 2,
+        "paginas": 1
+      }
+    ],
+    [
+      "GET",
+      "/buscar/aventuras-premium",
+      null,
+      200,
+      {
+        "ids": [
+          "J3"
+        ],
+        "total": 1,
+        "paginas": 1
+      }
+    ],
+    [
+      "GET",
+      "/buscar/flexible",
+      null,
+      200,
+      {
+        "ids": [
+          "J1",
+          "J2"
+        ],
+        "total": 6,
+        "paginas": 3
+      }
+    ],
+    [
+      "GET",
+      "/buscar/flexible?minimo=-1",
+      null,
+      400,
+      null
+    ],
+    [
+      "GET",
+      "/buscar/flexible?genero=OTRO",
+      null,
+      400,
+      null
+    ],
+    [
+      "GET",
+      "/buscar/flexible?minimo=5&minimo=10",
+      null,
+      400,
+      null
+    ]
+  ]
+}
